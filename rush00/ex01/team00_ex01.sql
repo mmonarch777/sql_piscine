@@ -37,3 +37,16 @@ with recursive way as (
              order by total_cost, tour)
 
 select * from min_way;
+
+-- WITH RECURSIVE travel  AS (
+--     SELECT d.point_1, d.point_2, 1 AS n, cost AS sum_cost, CONCAT('{',point_1::varchar) AS path FROM nodes d WHERE point_1 = 'a'
+--     UNION
+--     SELECT d2.point_1, d2.point_2, travel.n + 1, travel.sum_cost + d2.cost, CONCAT(travel.path, ',', d2.point_1) FROM nodes d2
+--                                                                                                                        JOIN travel ON travel.point_2 = d2.point_1
+--     WHERE travel.n < (SELECT COUNT(DISTINCT nodes.point_1) FROM nodes)
+-- ), travel_needed AS (
+--     SELECT sum_cost, path FROM travel WHERE n = (SELECT COUNT(DISTINCT nodes.point_1) FROM nodes) AND travel.point_2 = 'a'
+--                                         AND path LIKE '%a%' AND path LIKE '%b%' AND path LIKE '%c%' AND path LIKE '%d%'
+-- )
+-- SELECT DISTINCT sum_cost AS total_cost, CONCAT(path, ',a}') AS tour FROM travel_needed ORDER BY total_cost, tour;
+--
