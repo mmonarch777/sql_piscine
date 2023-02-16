@@ -1,4 +1,4 @@
-with amount_rders as (
+with amount_orders as (
     select
         po.person_id, m.pizzeria_id, count(*) as count
     from person_order po
@@ -17,5 +17,4 @@ select
         when count = 2 then 22
         else 30 end
 from
-    amount_rders;
-
+    amount_orders;
